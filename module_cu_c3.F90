@@ -38,12 +38,14 @@ module module_cu_c3
    !use module_mp_wsm3, only: WSM3_GF
 
 #ifdef MPAS
-  use mpas_kind_types, only: kind_c3 => RKIND
-#endif
-
-#ifdef CCPP
-  use machine, only: kind_c3     => kind_phys
-  use machine, only: kind_c3_dbl => kind_dbl_prec
+   use mpas_kind_types, only: kind_c3     => RKIND
+   use mpas_kind_types, only: kind_c3_dbl => R8KIND
+#elif defined(CCPP)
+   use machine,         only: kind_c3     => kind_phys
+   use machine,         only: kind_c3_dbl => kind_dbl_prec
+#else
+   use iso_fortran_env, only: kind_c3     => real32
+   use iso_fortran_env, only: kind_c3_dbl => real64
 #endif
    
    implicit none
